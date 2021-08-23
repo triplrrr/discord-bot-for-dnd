@@ -1,19 +1,18 @@
+require('dotenv').config()
 const { Client, Intents, Collection } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
 
-
-
-const rest = new REST({ version: '9' }).setToken(process.env['token']);
+const rest = new REST({ version: '9' }).setToken(process.env['BOT_TOKEN']);
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.commands = new Collection();
 const commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-const clientId = '422825116003467277';
-const guildId = '540190457972391966';
+const clientId = process.env['BOT_CLIENT_ID'];
+const guildId = process.env['TEST_GUILD_ID'];
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
